@@ -84,41 +84,34 @@ function displayChart() {
 }
 
 function login() {
-   
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
 
-   
-    if (email === '' || password === '') {
-        alert('Please fill in all fields');
-        return;
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (storedUser && storedUser.username === username && storedUser.password === password) {
+
+        localStorage.setItem('loggedInUser', username);
+        alert('Login successful!');
+        window.location.href = 'budget.html'; 
+    } else {
+        alert('Invalid username or password.');
     }
-
-
-    alert('Login successful!');
-
-
-    window.location.href = 'budget.html';
 }
 
 function register() {
-   
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-
-    if (username === '' || email === '' || password === '') {
-        alert('Please fill in all fields');
-        return;
+    if (username && email && password) {
+      
+        localStorage.setItem('user', JSON.stringify({ username, email, password }));
+        alert('Registration successful!');
+        window.location.href = 'index.html';
+    } else {
+        alert('Please fill all fields.');
     }
-
-    
-   
-    alert('Registration successful!');
-
-
-    window.location.href = 'index.html';
 }
 
 function logout() {
